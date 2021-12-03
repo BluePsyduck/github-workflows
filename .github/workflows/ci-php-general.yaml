@@ -6,7 +6,7 @@ on:
       php-version:
         type: string
         description: The version of PHP to use for the general tasks.
-        default: "8.0"
+        default: "8.1"
         required: false
 
 jobs:
