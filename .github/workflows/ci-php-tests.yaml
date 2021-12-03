@@ -3,6 +3,11 @@ name: CI PHP Tests
 on:
   workflow_call:
     inputs:
+      extensions:
+        type: string
+        description: The comma-separated list of extensions to install.
+        default: ""
+        required: false
       php-versions:
         type: string
         description: The space sparated list of PHP versions to use for the tests.
@@ -11,7 +16,7 @@ on:
       min-php-version:
         type: string
         description: The minimal PHP version to use for the tests.
-        default: "7.4"
+        default: "all"
         required: false
       suite-with-coverage:
         type: string
@@ -38,6 +43,7 @@ jobs:
         with:
           php-version: "8.0"
           coverage: none
+          extensions: ${{ inputs.extensions }}
 
       - name: Get composer cache directory
         id: composer-cache
@@ -90,6 +96,7 @@ jobs:
         with:
           php-version: ${{ matrix.version }}
           coverage: ${{ matrix.suite == inputs.suite-with-coverage && 'xdebug' || 'none' }}
+          extensions: ${{ inputs.extensions }}
 
       - name: Get composer cache directory
         id: composer-cache

@@ -17,7 +17,7 @@ $matrix = [];
 if (count($versions) > 0 && count($suites) > 0) {
     foreach ($suites as $suite) {
         foreach ($versions as $version) {
-            if (floatval($version) < floatval($minVersion)) {
+            if ($version !== 'all' && floatval($version) < floatval($minVersion)) {
                 continue;
             }
 

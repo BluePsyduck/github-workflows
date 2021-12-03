@@ -3,6 +3,11 @@ name: CI PHP General
 on:
   workflow_call:
     inputs:
+      extensions:
+        type: string
+        description: The comma-separated list of extensions to install.
+        default: ""
+        required: false
       php-version:
         type: string
         description: The version of PHP to use for the general tasks.
@@ -21,8 +26,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ inputs.php-version }}
-          extensions: json, pdo_mysql, zip
           coverage: none
+          extensions: ${{ inputs.extensions }}
 
       - name: Run composer validate
         run: composer validate --strict
@@ -38,8 +43,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ inputs.php-version }}
-          tools: cs2pr
           coverage: none
+          extensions: ${{ inputs.extensions }}
+          tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
@@ -70,6 +76,7 @@ jobs:
         with:
           php-version: ${{ inputs.php-version }}
           coverage: none
+          extensions: ${{ inputs.extensions }}
 
       - name: Get composer cache directory
         id: composer-cache
