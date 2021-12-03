@@ -1,3 +1,5 @@
+name: CI PHP Tests
+
 on:
   workflow_call:
     inputs:
@@ -76,6 +78,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Checkout shared workflow files
+        uses: actions/checkout@v2
+        with:
+          repository: BluePsyduck/github-workflows
+          path: .shared
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
